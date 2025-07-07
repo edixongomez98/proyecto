@@ -7,14 +7,14 @@ const productos = [
   { id: 6, nombre: "Gorra Blanca", precio: 25000, img: "img/6.jpg" },
 ];
 
-let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-
+let carrito = [];
 const catalogo = document.getElementById("catalogo");
 const carritoLista = document.getElementById("carrito-lista");
 const totalElem = document.getElementById("total");
 const pagarBtn = document.getElementById("pagar-btn");
-const carritoContainer = document.getElementById("carrito-container");
-const toggleBtn = document.getElementById("carrito-toggle");
+const botonCarrito = document.getElementById("boton-carrito");
+const carritoPanel = document.getElementById("carrito");
+const cerrarCarrito = document.getElementById("cerrar-carrito");
 
 // Mostrar productos
 productos.forEach(p => {
@@ -24,16 +24,15 @@ productos.forEach(p => {
     <img src="${p.img}" alt="${p.nombre}">
     <h3>${p.nombre}</h3>
     <p>Precio: $${p.precio.toLocaleString()}</p>
-    <button onclick="agregarAlCarrito(${p.id})">Agregar al carrito</button>
+    <div class="agregado-exito">
+      <button onclick="agregarAlCarrito(${p.id}, this)">Agregar al carrito</button>
+      <span class="chulito">✓</span>
+    </div>
   `;
   catalogo.appendChild(div);
 });
 
-function guardarCarrito() {
-  localStorage.setItem("carrito", JSON.stringify(carrito));
-}
-
-function agregarAlCarrito(id) {
+function agregarAlCarrito(id, boton) {
   const index = carrito.findIndex(item => item.producto.id === id);
   if (index !== -1) {
     carrito[index].cantidad += 1;
@@ -41,18 +40,23 @@ function agregarAlCarrito(id) {
     const producto = productos.find(p => p.id === id);
     carrito.push({ producto, cantidad: 1 });
   }
-  guardarCarrito();
   mostrarCarrito();
+
+  // Animación de chulito ✓
+  const contenedor = boton.parentElement;
+  const chulito = contenedor.querySelector(".chulito");
+  chulito.classList.add("mostrar");
+  setTimeout(() => chulito.classList.remove("mostrar"), 1000);
 }
 
 function eliminarDelCarrito(id) {
   const index = carrito.findIndex(item => item.producto.id === id);
   if (index !== -1) {
-    carrito[index].cantidad -= 1;
-    if (carrito[index].cantidad <= 0) {
+    if (carrito[index].cantidad > 1) {
+      carrito[index].cantidad -= 1;
+    } else {
       carrito.splice(index, 1);
     }
-    guardarCarrito();
     mostrarCarrito();
   }
 }
@@ -60,18 +64,25 @@ function eliminarDelCarrito(id) {
 function mostrarCarrito() {
   carritoLista.innerHTML = "";
   let total = 0;
-  carrito.forEach(item => {
+  carrito.forEach(({ producto, cantidad }) => {
     const li = document.createElement("li");
-    const subtotal = item.producto.precio * item.cantidad;
     li.innerHTML = `
-      ${item.producto.nombre} x${item.cantidad} - $${subtotal.toLocaleString()}
-      <button class="eliminar-btn" onclick="eliminarDelCarrito(${item.producto.id})">Eliminar</button>
+      ${producto.nombre} x${cantidad} - $${(producto.precio * cantidad).toLocaleString()}
+      <button onclick="eliminarDelCarrito(${producto.id})" style="margin-left:10px; background:red;">Eliminar</button>
     `;
     carritoLista.appendChild(li);
-    total += subtotal;
+    total += producto.precio * cantidad;
   });
   totalElem.textContent = `Total: $${total.toLocaleString()}`;
 }
+
+// Abrir/cerrar carrito
+botonCarrito.addEventListener("click", () => {
+  carritoPanel.classList.add("abierto");
+});
+cerrarCarrito.addEventListener("click", () => {
+  carritoPanel.classList.remove("abierto");
+});
 
 pagarBtn.addEventListener("click", () => {
   const nombre = document.getElementById("nombre").value.trim();
@@ -84,10 +95,10 @@ pagarBtn.addEventListener("click", () => {
   }
 
   let mensaje = `Hola, hice una compra en TuGorra y este es mi pedido:%0A`;
-  carrito.forEach(item => {
-    mensaje += `- ${item.producto.nombre} x${item.cantidad} - $${(item.producto.precio * item.cantidad).toLocaleString()}%0A`;
+  carrito.forEach(({ producto, cantidad }) => {
+    mensaje += `- ${producto.nombre} x${cantidad} - $${(producto.precio * cantidad).toLocaleString()}%0A`;
   });
-  let total = carrito.reduce((sum, item) => sum + item.producto.precio * item.cantidad, 0);
+  let total = carrito.reduce((sum, { producto, cantidad }) => sum + producto.precio * cantidad, 0);
   mensaje += `%0ATotal: $${total.toLocaleString()}%0A`;
   mensaje += `%0ADatos del cliente:%0ANombre: ${nombre}%0ADirección: ${direccion}%0ACelular: ${telefono}`;
 
@@ -98,20 +109,8 @@ pagarBtn.addEventListener("click", () => {
 
   setTimeout(() => {
     carrito = [];
-    guardarCarrito();
     mostrarCarrito();
+    carritoPanel.classList.remove("abierto");
     window.location.href = whatsappUrl;
   }, 1000);
 });
-
-// Mostrar carrito al cargar
-mostrarCarrito();
-
-// Abrir/cerrar carrito
-toggleBtn.addEventListener("click", () => {
-  carritoContainer.classList.toggle("abierto");
-});
-
-function cerrarCarrito() {
-  carritoContainer.classList.remove("abierto");
-}
