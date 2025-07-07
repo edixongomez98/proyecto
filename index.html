@@ -17,26 +17,24 @@
   </main>
 
   <!-- Botón flotante del carrito -->
-  <button id="carrito-toggle" class="carrito-float">🛒</button>
+  <button id="boton-carrito" class="boton-flotante">🛒</button>
 
-  <!-- Carrito flotante -->
-  <div class="carrito-overlay" id="carrito-container">
-    <div class="carrito">
-      <button class="cerrar-carrito" onclick="cerrarCarrito()">✖</button>
-      <h2>Carrito de Compras</h2>
-      <ul id="carrito-lista"></ul>
-      <p id="total">Total: $0</p>
+  <!-- Panel de carrito flotante -->
+  <section class="carrito" id="carrito">
+    <button id="cerrar-carrito" class="cerrar-carrito">✖</button>
+    <h2>Carrito de Compras</h2>
+    <ul id="carrito-lista"></ul>
+    <p id="total">Total: $0</p>
 
-      <section class="formulario-contacto">
-        <h2>Datos del Cliente</h2>
-        <input type="text" id="nombre" placeholder="Nombre completo" required>
-        <input type="text" id="direccion" placeholder="Dirección de entrega" required>
-        <input type="text" id="telefono" placeholder="Celular de contacto" required>
-      </section>
+    <section class="formulario-contacto">
+      <h2>Datos del Cliente</h2>
+      <input type="text" id="nombre" placeholder="Nombre completo" required>
+      <input type="text" id="direccion" placeholder="Dirección de entrega" required>
+      <input type="text" id="telefono" placeholder="Celular de contacto" required>
+    </section>
 
-      <button id="pagar-btn">Pagar con mercado pago</button>
-    </div>
-  </div>
+    <button id="pagar-btn">Pagar con mercado pago</button>
+  </section>
 
   <script src="script.js"></script>
 </body>
