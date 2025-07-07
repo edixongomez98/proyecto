@@ -4,147 +4,33 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>TuGorra</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      background: #f5f5f5;
-      margin: 10;
-      padding: 10;
-      color: #333;
-    }
-    header {
-      background: #111;
-      color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-    h1 {
-      margin: 0;
-    }
-    .catalogo {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 20px;
-      padding: 20px;
-    }
-    .producto {
-      background: white;
-      padding: 15px;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      text-align: center;
-    }
-    .producto img {
-      width: 100%;
-      height: auto;
-      border-radius: 8px;
-    }
-    .producto h3 {
-      margin: 10px 0 5px;
-    }
-    .producto p {
-      margin: 5px 0;
-    }
-    .whatsapp-btn {
-      background: #25D366;
-      color: white;
-      padding: 10px;
-      display: inline-block;
-      border-radius: 6px;
-      text-decoration: none;
-      font-weight: bold;
-    }
-    .pagos, footer {
-      padding: 20px;
-      background: #fff;
-      margin-top: 20px;
-      text-align: center;
-    }
-    .pagos h2, footer h3 {
-      margin-top: 0;
-    }
-    .redes a {
-      margin: 0 10px;
-      text-decoration: none;
-      color: #333;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-
   <header>
     <h1>TuGorra</h1>
     <p>¡Tu estilo comienza por la cabeza!</p>
   </header>
 
-  <section class="catalogo">
-    <div class="producto">
-      <img src="img/1.jpg" alt="Gorra 1" />
-      <h3>Gorra California Roja</h3>
-      <p>Precio: $25.000</p>
-      <a class="whatsapp-btn" href="https://wa.me/573122284474?text=Hola%2C%20quiero%20comprar%20una%20Gorra%20de%20TuGorra">Comprar por WhatsApp</a>
-    </div>
+  <main>
+    <section class="catalogo" id="catalogo"></section>
 
-    <div class="producto">
-      <img src="img/2.jpg" alt="Gorra 2" />
-      <h3>Gorra California Vinotinto</h3>
-      <p>Precio: $25.000</p>
-       <a class="whatsapp-btn" href="https://wa.me/573122284474?text=Hola%2C%20quiero%20comprar%20una%20Gorra%20de%20TuGorra">Comprar por WhatsApp</a>
-    </div>
+    <section class="carrito">
+      <h2>Carrito de Compras</h2>
+      <ul id="carrito-lista"></ul>
+      <p id="total">Total: $0</p>
 
-    <div class="producto">
-      <img src="img/3.jpg" alt="Gorra 3" />
-      <h3>Gorra California verde</h3>
-      <p>Precio: $25.000</p>
-       <a class="whatsapp-btn" href="https://wa.me/573122284474?text=Hola%2C%20quiero%20comprar%20una%20Gorra%20de%20TuGorra">Comprar por WhatsApp</a>
-    </div>
-  </section>
+      <section class="formulario-contacto">
+        <h2>Datos del Cliente</h2>
+        <input type="text" id="nombre" placeholder="Nombre completo" required>
+        <input type="text" id="direccion" placeholder="Dirección de entrega" required>
+        <input type="text" id="telefono" placeholder="Celular de contacto" required>
+      </section>
 
+      <button id="pagar-btn">Pagar con mercado pago</button>
+    </section>
+  </main>
 
-
-  <section class="catalogo">
-    <div class="producto">
-      <img src="img/4.jpg" alt="Gorra 1" />
-      <h3>Gorra California azul</h3>
-      <p>Precio: $25.000</p>
-       <a class="whatsapp-btn" href="https://wa.me/573122284474?text=Hola%2C%20quiero%20comprar%20una%20Gorra%20de%20TuGorra">Comprar por WhatsApp</a>
-    </div>
-
-    <div class="producto">
-      <img src="img/5.jpg" alt="Gorra 2" />
-      <h3>Gorra California negra</h3>
-      <p>Precio: $25.000</p>
-       <a class="whatsapp-btn" href="https://wa.me/573122284474?text=Hola%2C%20quiero%20comprar%20una%20Gorra%20de%20TuGorra">Comprar por WhatsApp</a>
-    </div>
-
-    <div class="producto">
-      <img src="img/6.jpg" alt="Gorra 3" />
-      <h3>Gorra California blanca</h3>
-      <p>Precio: $25.000</p>
-       <a class="whatsapp-btn" href="https://wa.me/573122284474?text=Hola%2C%20quiero%20comprar%20una%20Gorra%20de%20TuGorra">Comprar por WhatsApp</a>
-    </div>
-  </section>
-
-
-
-  <section class="pagos">
-    <h2>Formas de Pago</h2>
-    <p><strong>Nequi:</strong> 3116516861</p>
-    <p><strong>Llave Bancolombia:</strong> 1087648104</p>
-    <p><strong>Titular:</strong> Edixon Fernando Gomez Carlosama</p>
-    <p>Después de hacer el pago, envíanos el comprobante por WhatsApp para confirmar tu pedido.</p>
-     <p>los envios tardan aproximadamente 10 dias habiles con servientrega o interrrapidisimo.</p>
-  </section>
-
-  <footer>
-    <h3>Síguenos</h3>
-    <div class="redes">
-      <a href="#">Instagram</a>
-      <a href="#">Facebook</a>
-      <a href="#">TikTok</a>
-    </div>
-    <p>&copy; 2025 TuGorra - Todos los derechos reservados</p>
-  </footer>
-
+  <script src="script.js"></script>
 </body>
 </html>
