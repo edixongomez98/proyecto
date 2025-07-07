@@ -14,8 +14,15 @@
 
   <main>
     <section class="catalogo" id="catalogo"></section>
+  </main>
 
-    <section class="carrito">
+  <!-- Botón flotante del carrito -->
+  <button id="carrito-toggle" class="carrito-float">🛒</button>
+
+  <!-- Carrito flotante -->
+  <div class="carrito-overlay" id="carrito-container">
+    <div class="carrito">
+      <button class="cerrar-carrito" onclick="cerrarCarrito()">✖</button>
       <h2>Carrito de Compras</h2>
       <ul id="carrito-lista"></ul>
       <p id="total">Total: $0</p>
@@ -28,8 +35,8 @@
       </section>
 
       <button id="pagar-btn">Pagar con mercado pago</button>
-    </section>
-  </main>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
